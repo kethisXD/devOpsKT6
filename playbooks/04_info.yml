@@ -1,0 +1,10 @@
+- hosts: agents
+  gather_facts: true
+  tasks:
+    - command: free -h
+      register: mem
+    - debug:
+        msg: |
+          {{ inventory_hostname }} ({{ ansible_default_ipv4.address }})
+          Память:
+          {{ mem.stdout_lines | join('\n') }}

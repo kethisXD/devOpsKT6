@@ -1,0 +1,6 @@
+- hosts: agents
+  become: true
+  tasks:
+    - package:
+        name: htop
+        state: present

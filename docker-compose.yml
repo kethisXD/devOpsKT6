@@ -1,0 +1,29 @@
+services:
+  agent1:
+    image: dev_ops_kt6_arch:dev      # ваш собранный образ
+    container_name: agent_1
+    ports:
+      - "2221:22"                    # localhost:2221 → контейнер:22
+    volumes:
+      - agent1_home:/home/ansible    # отдельный home, чтобы не мешались SSH-ключи
+      - pacman_cache:/var/cache/pacman/pkg
+    networks: [ansible-net]
+
+  agent2:
+    image: dev_ops_kt6_arch:dev
+    container_name: agent_2
+    ports:
+      - "2222:22"                    # второй порт на хосте
+    volumes:
+      - agent2_home:/home/ansible
+      - pacman_cache:/var/cache/pacman/pkg
+    networks: [ansible-net]
+
+networks:
+  ansible-net:
+
+volumes:
+  agent1_home:
+  agent2_home:
+  pacman_cache:
+

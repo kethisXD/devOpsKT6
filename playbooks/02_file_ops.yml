@@ -1,0 +1,11 @@
+- hosts: agents
+  tasks:
+    - copy:
+        dest: /tmp/demo.txt
+        content: "Создано Ansible\n"
+    - lineinfile:
+        path: /tmp/demo.txt
+        line: "Дата {{ ansible_date_time.iso8601 }}"
+    - file:
+        path: /tmp/demo.txt
+        state: absent

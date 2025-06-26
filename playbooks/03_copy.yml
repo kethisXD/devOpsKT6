@@ -1,0 +1,17 @@
+# playbooks/03_copy.yml
+- hosts: agents
+  gather_facts: true
+  tasks:
+    - name: Создать каталог /tmp/backup
+      file:
+        path: /tmp/backup
+        state: directory
+        owner: ansible
+        mode: "0755"
+
+    - name: Копировать /etc/hosts в резервную папку
+      copy:
+        src: /etc/hosts
+        dest: /tmp/backup/hosts.bak
+        remote_src: yes
+        mode: "0644"
